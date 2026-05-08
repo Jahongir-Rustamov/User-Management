@@ -1,0 +1,13 @@
+services:
+  PostgreSQL:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: Task1
+      POSTGRES_PASSWORD: any001
+      POSTGRES_DB: Task1
+    ports:
+      - '5430:5432'
+    networks:
+      - freecodecamp
+networks:
+  freecodecamp:
