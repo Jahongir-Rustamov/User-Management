@@ -9,5 +9,26 @@ services:
       - '5430:5432'
     networks:
       - freecodecamp
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U Task1 -d Task1" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  server:
+    build: .
+    ports:
+      - '5000:5000'
+    environment:
+      PORT: 5000
+      DATABASE_URL: "postgresql://Task1:any001@PostgreSQL:5432/Task1"
+      JWT_SECRET_KEY: task1-4f4308784bcd9fe2d3920df7572db4a933e84e628fb22f503b1ec1736d3b1bff
+      Node_Env: development
+    depends_on:
+      PostgreSQL:
+        condition: service_healthy
+    networks:
+      - freecodecamp
+
 networks:
   freecodecamp:
